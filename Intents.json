@@ -1,0 +1,222 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "libro comunicación",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "HelloWorldIntent",
+                    "slots": [],
+                    "samples": [
+                        "hola",
+                        "como estás",
+                        "di hola mundo",
+                        "di hola",
+                        "hola mundo"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "actividad_uno",
+                    "slots": [],
+                    "samples": [
+                        "Comencemos con la primera actividad ",
+                        "primera actividad",
+                        "iniciemos con la primera actividad",
+                        "iniciamos con la primera actividad"
+                    ]
+                },
+                {
+                    "name": "texto_leido_uno",
+                    "slots": [],
+                    "samples": [
+                        "terminé con el primer texto",
+                        "ya terminé con el primer texto",
+                        "Ya terminé de leer el primer texto"
+                    ]
+                },
+                {
+                    "name": "respuesta_uno",
+                    "slots": [
+                        {
+                            "name": "respuesta",
+                            "type": "TipoRespuesta"
+                        }
+                    ],
+                    "samples": [
+                        "la {respuesta}",
+                        "{respuesta}",
+                        "la respuesta es {respuesta}"
+                    ]
+                },
+                {
+                    "name": "ayuda_intent",
+                    "slots": [],
+                    "samples": [
+                        "ayuda ",
+                        "Quiero que me ayudes",
+                        "Me puedes ayudar",
+                        "Ayúdame",
+                        "Necesito ayuda"
+                    ]
+                },
+                {
+                    "name": "consulta_intent",
+                    "slots": [
+                        {
+                            "name": "pagina",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "La página {pagina}",
+                                "La {pagina}",
+                                "En la página {pagina}",
+                                "En la {pagina}",
+                                "{pagina}"
+                            ]
+                        },
+                        {
+                            "name": "pregunta",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "actividad",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "La actividad {actividad}",
+                                "En la actividad {actividad}",
+                                "En la {actividad}",
+                                "La {actividad}",
+                                "{actividad}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "En la actividad {actividad} en la página {pagina}",
+                        "En la actividad {actividad} página {pagina}",
+                        "La actividad {actividad} en la página {pagina}",
+                        "La actividad {actividad} página {pagina}",
+                        "La actividad {actividad}",
+                        "En la actividad {actividad}",
+                        "Actividad {actividad}",
+                        "La página {pagina}  actividad {actividad}",
+                        "Página {pagina}  actividad {actividad}",
+                        "Ayúdame en la página {pagina}  actividad {actividad}",
+                        "Necesito ayuda en la página {pagina} actividad {actividad}",
+                        "La página {pagina} ",
+                        "Página {pagina} ",
+                        "Ayúdame en la página {pagina} ",
+                        "Necesito ayuda en la página {pagina} "
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "TipoRespuesta",
+                    "values": [
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "c"
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "b"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "a"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "consulta_intent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "pagina",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1066542449414.1097491867307"
+                            }
+                        },
+                        {
+                            "name": "pregunta",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "actividad",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1066542449414.871065408497"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.1066542449414.1097491867307",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿Qué página?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Vale, pero en que página"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿En qué página?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1066542449414.871065408497",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿Qué actividad?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Vale, Pero en que actividad"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿En qué actividad?"
+                    }
+                ]
+            }
+        ]
+    }
+}
