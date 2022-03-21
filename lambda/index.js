@@ -5,25 +5,24 @@
  * */
 const Alexa = require('ask-sdk-core');
 const axios = require('axios');
-const listaActividadUrl = 'https://godartg.github.io/Ayuda_Alexa.github.io/Lista_actividad.json';
-const listaAyudaUrl = 'https://godartg.github.io/Ayuda_Alexa.github.io/Lista_ayuda.json';
-
+const listaAyudaUrl= 'https://4e8f-186-148-196-74.ngrok.io/api/obtenerAyudaActividad/2/B/Comunicacion/Informacion/';
+const listaActividadUrl= 'https://4e8f-186-148-196-74.ngrok.io/api/obtenerDescripcionActividad/2/B/Comunicacion/Informacion/';
 /*=====================================================================*/
 
 
 
-const obtenerActividades = async () => {
+const obtenerActividades = async (pagina, actividad) => {
   try {
-    const { data } = await axios.get(listaActividadUrl);
+    const { data } = await axios.get(listaActividadUrl+pagina+'/'+actividad);
     return data;
   } catch (error) {
     console.error('no se pudo obtener datos', error);
   }
 };
 
-const obtenerAyudas = async () => {
+const obtenerAyudas = async (pagina, actividad) => {
   try {
-    const { data } = await axios.get(listaAyudaUrl);
+    const { data } = await axios.get(listaAyudaUrl+pagina+'/'+actividad);
     return data;
   } catch (error) {
     console.error('no se pudo obtener datos', error);
@@ -70,63 +69,13 @@ const ConsultaManejador = {
   },
   async handle(handlerInput) {
     try {
-        const lista_actividad = await obtenerActividades();
-        const lista_ayuda = await obtenerAyudas();
         const DatoPagina = handlerInput.requestEnvelope.request.intent.slots.pagina.value;/*Número de página*/
         const DatoActividad= handlerInput.requestEnvelope.request.intent.slots.actividad.value;/*Actividad 1 , 2 , 3 ...*/
         const DatoPregunta = handlerInput.requestEnvelope.request.intent.slots.pregunta.value;/*pregunta A B C ....*/
-        
-        //const item = DatoActividad - 1 ;
-        //let speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[item]}. ${lista_ayuda[item]}`;
-        
-        let speechText = `Dato vacío `;
-        
-        //localizar página 
-        switch (DatoPagina) {
-          case '5':
-            speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[0]}. ${lista_ayuda[0]}`;
-            
-            break;
-          case '6':
-            speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[1]}. ${lista_ayuda[1]}`;
-            break;
-          case '7':
-            speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[2]}. ${lista_ayuda[2]}`;
-            break;
-          case '8':/*actividad 4 y 5*/
-            if(DatoActividad ==='4'){
-                speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[3]}. ${lista_ayuda[3]}`;
-            }
-            else if(DatoActividad==='5'){
-                speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[4]}. ${lista_ayuda[4]}`;
-            }
-            break;
-          case '9':/*actividad 6,7,8 y 9*/
-            if(DatoActividad === '6'){
-                speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[5]}. ${lista_ayuda[5]}`;
-            }else if(DatoActividad === '7'){
-                speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[6]}. ${lista_ayuda[6]}`;
-            }else if(DatoActividad === '8'){
-                speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[7]}. ${lista_ayuda[7]}`;
-            }else if(DatoActividad==='9'){
-                speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[8]}. ${lista_ayuda[8]}`;
-            }
-            /*else = */
-            
-            break;
-          case '10':/*actividad 10 y 11*/
-            if(DatoActividad==='10'){
-                speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[9]}. ${lista_ayuda[9]}`;
-            }
-            else if(DatoActividad==='11'){
-                speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad[10]}. ${lista_ayuda[10]}`;
-            }
-            break;
-          default:
-            speechText = `la página ${DatoPagina} no contiene una actividad ${DatoActividad}`;
-        }
-        //const attributesManager = handlerInput.attributesManager;
-        
+        const lista_actividad = await obtenerActividades( DatoPagina, DatoActividad );
+        const lista_ayuda = await obtenerAyudas( DatoPagina, DatoActividad);
+        let speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad['detalle']}. ${lista_ayuda['ayuda']}`
+
         const responseBuilder = handlerInput.responseBuilder;
     
         //guardar dato en memoria
