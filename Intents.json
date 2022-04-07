@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "libro comunicación",
+            "invocationName": "ayuda alumno",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -98,9 +98,37 @@
                                 "La {actividad}",
                                 "{actividad}"
                             ]
+                        },
+                        {
+                            "name": "curso",
+                            "type": "Curso",
+                            "samples": [
+                                "{curso}",
+                                "en el {curso}",
+                                "en el curso {curso}",
+                                "El curso {curso}"
+                            ]
+                        },
+                        {
+                            "name": "seccion",
+                            "type": "Seccion",
+                            "samples": [
+                                "el {seccion}",
+                                "La sección {seccion}"
+                            ]
+                        },
+                        {
+                            "name": "grado",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                "{grado}",
+                                "El grado {grado}"
+                            ]
                         }
                     ],
                     "samples": [
+                        "Soy del salon {grado} {seccion} quisiera ayuda en el curso {curso} en la actividad {actividad} y en la página {pagina}",
+                        "En el curso {curso} ",
                         "En la actividad {actividad} en la página {pagina}",
                         "En la actividad {actividad} página {pagina}",
                         "La actividad {actividad} en la página {pagina}",
@@ -142,6 +170,102 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "Curso",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "ciencia y ambiente",
+                                "synonyms": [
+                                    "Ciencia y Ambiente",
+                                    "Ciencia y ambiente"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "personal social",
+                                "synonyms": [
+                                    "Personal Social",
+                                    "Personal social"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Matemática",
+                                "synonyms": [
+                                    "matemática",
+                                    "matematica",
+                                    "Matematica"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Comunicación",
+                                "synonyms": [
+                                    "comunicación",
+                                    "comunicacion",
+                                    "Comunicacion"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Seccion",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "F",
+                                "synonyms": [
+                                    "f"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "E",
+                                "synonyms": [
+                                    "e"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "D",
+                                "synonyms": [
+                                    "d"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "C",
+                                "synonyms": [
+                                    "c"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "B",
+                                "synonyms": [
+                                    "b"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "A",
+                                "synonyms": [
+                                    "a"
+                                ]
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -175,6 +299,33 @@
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1066542449414.871065408497"
+                            }
+                        },
+                        {
+                            "name": "curso",
+                            "type": "Curso",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1556586162844.1214583673489"
+                            }
+                        },
+                        {
+                            "name": "seccion",
+                            "type": "Seccion",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1353873056803.1549083274101"
+                            }
+                        },
+                        {
+                            "name": "grado",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1353873056803.1107802761149"
                             }
                         }
                     ]
@@ -214,6 +365,57 @@
                     {
                         "type": "PlainText",
                         "value": "¿En qué actividad?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1556586162844.1214583673489",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿En que curso?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Vale, pero en que curso"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿Qué curso?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1353873056803.1549083274101",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿En que sección?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Vale pero en que sección."
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿Que sección?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1353873056803.1107802761149",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "¿En qué grado?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Vale, pero en que grado"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "¿Qué grado?"
                     }
                 ]
             }
