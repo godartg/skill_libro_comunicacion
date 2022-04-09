@@ -12,13 +12,16 @@ const axios = require('axios');
 const listaAyudaUrl= 'https://libro-comunicacion.herokuapp.com/api/obtenerAyudaActividad/';
 const listaActividadUrl= 'https://libro-comunicacion.herokuapp.com/api/obtenerDescripcionActividad/';
 /*=====================================================================*/
-
+//https://libro-comunicacion.herokuapp.com/api/obtenerAyudaActividad/3/b/comunicaci%C3%B3n/Ejemplo%20de%20material%20Comunicaci%C3%B3n/5/1
+//https://libro-comunicacion.herokuapp.com/api/obtenerDescripcionActividad/3/b/comunicaci%C3%B3n/Ejemplo%20de%20material%20Comunicaci%C3%B3n/5/1
 
 
 const obtenerActividades = async (pagina, actividad, curso, grado, seccion) => {
   try {
-    const { data } = await axios.get(listaActividadUrl+grado+'/'+seccion+'/'+ curso +'/'+'Comunicaci%C3%B3n%203%20cuaderno%20de%20trabajo%20para%20tercer%20grado%20de%20educaci%C3%B3n%20primaria%202020'+ '/' + pagina +'/' + actividad);
-    //const data  = listaActividadUrl+ grado +'/'+ seccion +'/'+ curso +'/'+ 'Comunicaci%C3%B3n%203%20cuaderno%20de%20trabajo%20para%20tercer%20grado%20de%20educaci%C3%B3n%20primaria%202020' + '/' + pagina +'/' + actividad;
+   //const { data } = await axios.get('https://libro-comunicacion.herokuapp.com/api/obtenerAyudaActividad/'+grado+'/'+seccion+'/'+ curso +'/'+'comunicaci%C3%B3n/Ejemplo%20de%20material%20Comunicaci%C3%B3n'+ '/' + pagina +'/' + actividad);
+   const { data } = await axios.get(listaActividadUrl+grado+'/'+seccion+'/'+curso+'/'+pagina+'/'+actividad);
+   //const { data } = await axios.get('https://libro-comunicacion.herokuapp.com/api/obtenerDescripcionActividad/'+grado+'/'+seccion+'/'+curso+'/Ejemplo%20de%20material%20Comunicaci%C3%B3n/'+pagina+'/'+actividad);
+
     return data;
   } catch (error) {
     console.error('no se pudo obtener datos', error);
@@ -27,7 +30,12 @@ const obtenerActividades = async (pagina, actividad, curso, grado, seccion) => {
 
 const obtenerAyudas = async (pagina, actividad, curso, grado, seccion) => {
   try {
-    const { data } = await axios.get(listaAyudaUrl+grado+'/'+seccion+'/'+ curso +'/'+ 'Comunicaci%C3%B3n%203%20cuaderno%20de%20trabajo%20para%20tercer%20grado%20de%20educaci%C3%B3n%20primaria%202020'+ '/' +pagina+'/'+actividad);
+    //const { data } = await axios.get('https://libro-comunicacion.herokuapp.com/api/obtenerDescripcionActividad/'+grado+'/'+seccion+'/'+ curso +'/'+ 'comunicaci%C3%B3n/Ejemplo%20de%20material%20Comunicaci%C3%B3n'+ '/' +pagina+'/'+actividad);
+    const { data } = await axios.get(listaAyudaUrl+grado+'/'+seccion+'/'+curso+'/'+pagina+'/'+actividad);
+    //const { data } = await axios.get('https://libro-comunicacion.herokuapp.com/api/obtenerAyudaActividad/'+grado+'/'+seccion+'/'+curso+'/Ejemplo%20de%20material%20Comunicaci%C3%B3n/'+pagina+'/'+actividad);
+
+
+    
     return data;
   } catch (error) {
     console.error('no se pudo obtener datos', error);
@@ -56,8 +64,8 @@ const AyudaManejador = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ayuda_intent';
     },
     handle(handlerInput) {
-        const speakOutput = '¿En qué página necesitas ayuda?';
-        const speakOutput2 = 'Díme por ejemplo: Necesito ayuda en la página cinco';
+        const speakOutput = '¿En qué curso necesitas ayuda?';
+        const speakOutput2 = 'Díme por ejemplo: Necesito ayuda en el curso de Comunicación';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput2)
@@ -78,12 +86,24 @@ const ConsultaManejador = {
         const DatoActividad= handlerInput.requestEnvelope.request.intent.slots.actividad.value;/*Actividad 1 , 2 , 3 ...*/
         const DatoCurso = handlerInput.requestEnvelope.request.intent.slots.curso.value;/*Curso Matemática, Comunicación, Ciencia y ambiente, personal social ....*/
         const DatoSeccion = handlerInput.requestEnvelope.request.intent.slots.seccion.value;/*seccion A B C D E ....*/
-        const DatoGrado = handlerInput.requestEnvelope.request.intent.slots.grado.value;/*grado 1 2 3 4 5 6 ....*/
+        const DatoGrado = Number(handlerInput.requestEnvelope.request.intent.slots.grado.value);/*grado 1 2 3 4 5 6 ....*/
         //let speechText = listaAyudaUrl +'/'+ DatoGrado +'/'+ DatoSeccion +'/'+ DatoCurso +'/'+ 'Comunicaci%C3%B3n%203%20cuaderno%20de%20trabajo%20para%20tercer%20grado%20de%20educaci%C3%B3n%20primaria%202020' + '/' +DatoPagina+'/'+DatoActividad;
         //let speechText = listaActividadUrl +'/'+ DatoGrado +'/'+ DatoSeccion +'/'+ DatoCurso +'/'+ 'Comunicaci%C3%B3n%203%20cuaderno%20de%20trabajo%20para%20tercer%20grado%20de%20educaci%C3%B3n%20primaria%202020' + '/' +DatoPagina+'/'+DatoActividad;
-        const lista_actividad = await obtenerActividades( DatoPagina, DatoActividad, DatoCurso, DatoGrado, DatoSeccion );
-        const lista_ayuda = await obtenerAyudas( DatoPagina, DatoActividad, DatoCurso, DatoGrado, DatoSeccion);
+        
+        
+        //pagina, actividad, curso, grado, seccion
+        const lista_actividad = await obtenerActividades( DatoPagina, DatoActividad, encodeURI(DatoCurso), DatoGrado, DatoSeccion );
+        const lista_ayuda = await obtenerAyudas( DatoPagina, DatoActividad, encodeURI(DatoCurso), DatoGrado, DatoSeccion);
+        
+        
+        
+        
+        
         let speechText = `La actividad ${DatoActividad} de la página ${DatoPagina} dice: ${lista_actividad['detalle']} ${lista_ayuda['ayuda']}`;
+        //let speechText = `https://libro-comunicacion.herokuapp.com/api/obtenerDescripcionActividad/${DatoGrado}/${DatoSeccion}/${DatoCurso}/${DatoPagina}/${DatoActividad}`;
+        
+        
+        
         //let speechText = `${lista_actividad}`;
         
         const responseBuilder = handlerInput.responseBuilder;

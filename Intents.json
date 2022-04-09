@@ -74,6 +74,32 @@
                     "name": "consulta_intent",
                     "slots": [
                         {
+                            "name": "curso",
+                            "type": "Curso",
+                            "samples": [
+                                "{curso}",
+                                "en el {curso}",
+                                "en el curso {curso}",
+                                "El curso {curso}"
+                            ]
+                        },
+                        {
+                            "name": "grado",
+                            "type": "Grado",
+                            "samples": [
+                                "{grado}",
+                                "El grado {grado}"
+                            ]
+                        },
+                        {
+                            "name": "seccion",
+                            "type": "Seccion",
+                            "samples": [
+                                "el {seccion}",
+                                "La sección {seccion}"
+                            ]
+                        },
+                        {
                             "name": "pagina",
                             "type": "AMAZON.NUMBER",
                             "samples": [
@@ -83,10 +109,6 @@
                                 "En la {pagina}",
                                 "{pagina}"
                             ]
-                        },
-                        {
-                            "name": "pregunta",
-                            "type": "AMAZON.NUMBER"
                         },
                         {
                             "name": "actividad",
@@ -100,35 +122,22 @@
                             ]
                         },
                         {
-                            "name": "curso",
-                            "type": "Curso",
-                            "samples": [
-                                "{curso}",
-                                "en el {curso}",
-                                "en el curso {curso}",
-                                "El curso {curso}"
-                            ]
-                        },
-                        {
-                            "name": "seccion",
-                            "type": "Seccion",
-                            "samples": [
-                                "el {seccion}",
-                                "La sección {seccion}"
-                            ]
-                        },
-                        {
-                            "name": "grado",
-                            "type": "AMAZON.NUMBER",
-                            "samples": [
-                                "{grado}",
-                                "El grado {grado}"
-                            ]
+                            "name": "pregunta",
+                            "type": "AMAZON.NUMBER"
                         }
                     ],
                     "samples": [
+                        "{seccion}",
+                        "{grado}",
+                        "en el {grado} {seccion}",
+                        "{curso}",
+                        "{grado} {seccion}",
+                        "soy del salon {grado} {seccion}",
+                        "en el curso {curso}",
+                        "ayudame en {curso}",
+                        "ayudame en el curso {curso}",
+                        "necesito ayuda en el curso {curso}",
                         "Soy del salon {grado} {seccion} quisiera ayuda en el curso {curso} en la actividad {actividad} y en la página {pagina}",
-                        "En el curso {curso} ",
                         "En la actividad {actividad} en la página {pagina}",
                         "En la actividad {actividad} página {pagina}",
                         "La actividad {actividad} en la página {pagina}",
@@ -178,6 +187,7 @@
                             "name": {
                                 "value": "ciencia y ambiente",
                                 "synonyms": [
+                                    "ciencia y ambiente",
                                     "Ciencia y Ambiente",
                                     "Ciencia y ambiente"
                                 ]
@@ -219,49 +229,116 @@
                     "values": [
                         {
                             "name": {
-                                "value": "F",
+                                "value": "f",
                                 "synonyms": [
+                                    "f.",
                                     "f"
                                 ]
                             }
                         },
                         {
                             "name": {
-                                "value": "E",
+                                "value": "e",
                                 "synonyms": [
+                                    "e.",
                                     "e"
                                 ]
                             }
                         },
                         {
                             "name": {
-                                "value": "D",
+                                "value": "d",
                                 "synonyms": [
+                                    "d.",
                                     "d"
                                 ]
                             }
                         },
                         {
                             "name": {
-                                "value": "C",
+                                "value": "c",
                                 "synonyms": [
+                                    "c.",
                                     "c"
                                 ]
                             }
                         },
                         {
                             "name": {
-                                "value": "B",
+                                "value": "b",
                                 "synonyms": [
+                                    "b.",
                                     "b"
                                 ]
                             }
                         },
                         {
                             "name": {
-                                "value": "A",
+                                "value": "a",
                                 "synonyms": [
+                                    "a.",
                                     "a"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Grado",
+                    "values": [
+                        {
+                            "id": "6",
+                            "name": {
+                                "value": "6",
+                                "synonyms": [
+                                    "sexto"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "5",
+                            "name": {
+                                "value": "5",
+                                "synonyms": [
+                                    "quinto"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "4",
+                            "name": {
+                                "value": "4",
+                                "synonyms": [
+                                    "cuarto"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "3",
+                            "name": {
+                                "value": "3",
+                                "synonyms": [
+                                    "tercer",
+                                    "tercero"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "2",
+                            "name": {
+                                "value": "2",
+                                "synonyms": [
+                                    "segundo"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "1",
+                                "synonyms": [
+                                    "primer",
+                                    "primero"
                                 ]
                             }
                         }
@@ -277,37 +354,21 @@
                     "prompts": {},
                     "slots": [
                         {
-                            "name": "pagina",
-                            "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.1066542449414.1097491867307"
-                            }
-                        },
-                        {
-                            "name": "pregunta",
-                            "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        },
-                        {
-                            "name": "actividad",
-                            "type": "AMAZON.NUMBER",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.1066542449414.871065408497"
-                            }
-                        },
-                        {
                             "name": "curso",
                             "type": "Curso",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
                                 "elicitation": "Elicit.Slot.1556586162844.1214583673489"
+                            }
+                        },
+                        {
+                            "name": "grado",
+                            "type": "Grado",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1353873056803.1107802761149"
                             }
                         },
                         {
@@ -320,13 +381,29 @@
                             }
                         },
                         {
-                            "name": "grado",
+                            "name": "pagina",
                             "type": "AMAZON.NUMBER",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
-                                "elicitation": "Elicit.Slot.1353873056803.1107802761149"
+                                "elicitation": "Elicit.Slot.1066542449414.1097491867307"
                             }
+                        },
+                        {
+                            "name": "actividad",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1066542449414.871065408497"
+                            }
+                        },
+                        {
+                            "name": "pregunta",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
                         }
                     ]
                 }
